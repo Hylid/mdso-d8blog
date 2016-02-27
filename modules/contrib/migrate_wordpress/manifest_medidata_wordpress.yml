@@ -1,0 +1,6 @@
+# A Wordpress posts/users/comments migration, with dependencies.
+- wp_medidata_users
+- wp_medidata_vocabulary
+- wp_medidata_terms
+- wp_medidata_posts
+- wp_medidata_comments
