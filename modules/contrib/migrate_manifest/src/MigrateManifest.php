@@ -41,15 +41,17 @@ class MigrateManifest {
 
   /**
    * Constructs a new MigrateManifest object.
+   * @param string $manifest_file
+   *   The location of the manifest file.
    */
   public function __construct($manifest_file) {
-    $this->manifestFile = $manifest_file;
-    $this->migrationList = Yaml::parse($this->manifestFile);
     $this->log = new DrushLogMigrateMessage();
 
-    if (!file_exists($this->manifestFile)) {
-      throw new FileNotFoundException($this->manifestFile);
+    if (!file_exists($manifest_file)) {
+      throw new FileNotFoundException($manifest_file);
     }
+    $this->manifestFile = $manifest_file;
+    $this->migrationList = Yaml::parse(file_get_contents($manifest_file));
 
     if (!is_array($this->migrationList)) {
       throw new ParseException('The manifest file cannot be parsed.');
@@ -84,7 +86,7 @@ class MigrateManifest {
           $migration_info = NestedArray::mergeDeep($GLOBALS['config'][$migration_id], $migration_info);
         }
 
-        $migration_info = NestedArray::mergeDeep($template, $migration_info);
+        $migration_info = NestedArray::mergeDeepArray([$template, $migration_info], TRUE);
       }
       else {
         $migration_info = $template;
@@ -160,6 +162,7 @@ class MigrateManifest {
   protected function setupLegacyDb() {
     $db_url = drush_get_option('legacy-db-url');
     $db_spec = drush_convert_db_from_db_url($db_url);
+    $db_spec['db_prefix'] = drush_get_option('legacy-db-prefix');
     Database::removeConnection('migrate');
     Database::addConnectionInfo('migrate', 'default', $db_spec);
   }

@@ -285,7 +285,7 @@ $config_directories = array();
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'vo42YEIMYcWeic5bvTRliH7WHC1rk4LcayVWcWMY1yoyPulMkCG8J2jkG4JWvfX01lBI-DmLIA';
+$settings['hash_salt'] = 'RSBOzpNxpaYNFLk224sMFP9qkqCexNBJxTF1KdEFX07-D71NBJb2qYUkCOXQZyg2amUgcD4pDw';
 
 /**
  * Deployment identifier.
@@ -714,18 +714,9 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  *
  * Keep this code block at the end of this file to take full effect.
  */
-# if (file_exists(__DIR__ . '/settings.local.php')) {
-#   include __DIR__ . '/settings.local.php';
-# }
-$databases['default']['default'] = array (
-  'database' => 'mdso_d8blog',
-  'username' => 'uberkaiser',
-  'password' => 'y0ubastard',
-  'prefix' => '',
-  'host' => 'localhost',
-  'port' => '3306',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-);
+ if (file_exists(__DIR__ . '/settings.local.php')) {
+   include __DIR__ . '/settings.local.php';
+ }
+
 $settings['install_profile'] = 'standard';
-$config_directories['sync'] = 'sites/default/files/config_tWQ7Yt_cBm2SqciHaMMViuBmLxv7KUW4X3DhwT5qB2uhW-ex8xEpYci8ZkM3tqAY6xCxedy9ig/sync';
+$config_directories['sync'] = 'sites/default/files/config_d8E0snH9GRwsHjRYQ7yvYqcBsQH98j8LcZd-PBC6KXajCVYxXuTApdv9VvEdS4RwKstmYKgAxQ/sync';
